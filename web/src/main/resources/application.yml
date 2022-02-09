@@ -1,0 +1,17 @@
+# RabbitMQ configuration
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+
+# Logging
+logging:
+  level:
+    com:
+      possible:
+        sp: DEBUG
+server:
+  port: 8085

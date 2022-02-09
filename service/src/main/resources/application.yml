@@ -1,0 +1,43 @@
+# Data source configuration
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:9040/sp-tut-reg
+    username: postgres
+    password: ${password}
+
+  #stop hibernate from creating the schema
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: 'true'
+    show-sql: true  # Show what Hibernate is doing
+
+  # To initialize sql schema at runtime
+#  sql:
+#    init:
+#      mode: always
+
+  open-in-view: false  # Disable open session in view
+
+  # RabbitMQ configuration
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+
+
+# Logging
+logging:
+  level:
+    com:
+      possible:
+        sp: DEBUG
+
+server:
+  port: 8081
+

@@ -1,0 +1,9 @@
+server:
+  port: 8083
+
+# Logging
+logging:
+  level:
+    com:
+      possible:
+        sp: DEBUG
