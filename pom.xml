@@ -8,11 +8,13 @@
         <version>2.2.9.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com.possible</groupId>
     <artifactId>spring-integration-tut</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-integration-tut</name>
     <description>spring-integration-tut</description>
+    <packaging>pom</packaging>
 
     <properties>
         <java.version>11</java.version>
