@@ -13,7 +13,7 @@
             http://www.springframework.org/schema/integration/mail https://www.springframework.org/schema/integration/mail/spring-integration-mail.xsd">
 
     <!-- Inbound channel adapter which receives messages from RabbitMQ -->
-    <int-amqp:inbound-channel-adapter queue-names="globomantics.registrationRequest" channel="fromRabbit"/>
+    <int-amqp:inbound-channel-adapter queue-names="registrationReq" channel="fromRabbit"/>
 
     <int:channel id="fromRabbit"/>
 
@@ -32,16 +32,16 @@
     <int:chain id="confirmationEmailChain" input-channel="registrationEvent">
         <!-- Header enricher to set message headers for e-mail -->
         <int-mail:header-enricher>
-            <int-mail:from value="registration@globomantics.com"/>
+            <int-mail:from value="abayomi.gratitudeindia@gmail.com"/>
             <int-mail:to expression="payload.attendeeEmail"/>
-            <int-mail:subject value="Confirmation of your registration for the Globomantics Tech Conference"/>
+            <int-mail:subject value="Confirmation of your registration for the SpTut Tech Conference"/>
         </int-mail:header-enricher>
 
         <!-- Transform payload to text to be used as the body of the e-mail -->
         <int:transformer ref="confirmationMailTransformer" method="toMailText"/>
 
         <!-- Outbound channel adapter for sending e-mail -->
-        <int-mail:outbound-channel-adapter host="localhost" port="3025" username="globomantics" password="globomail"/>
+        <int-mail:outbound-channel-adapter host="smtp.gmail.com" port="587" username="abayomi.gratitudeindia@gmail.com" password="jclckxmrkgoegjmc"/>
     </int:chain>
 
     <int:chain id="billingChain" input-channel="registrationEvent">

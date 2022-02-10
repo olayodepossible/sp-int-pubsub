@@ -29,6 +29,18 @@ spring:
     username: guest
     password: guest
 
+    # mailSender setup
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: abayomi.gratitudeindia@gmail.com
+    password: ${mail_password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 
 # Logging

@@ -17,6 +17,6 @@
 
     <!-- Outbound channel adapter which sends messages to RabbitMQ -->
     <!-- Spring Boot automatically provides 'rabbitTemplate' -->
-    <int-amqp:outbound-channel-adapter channel="toRabbit" amqp-template="rabbitTemplate" routing-key="globomantics.registrationRequest"/>
+    <int-amqp:outbound-channel-adapter channel="toRabbit" amqp-template="rabbitTemplate" routing-key="registrationReq"/>
 
 </beans>

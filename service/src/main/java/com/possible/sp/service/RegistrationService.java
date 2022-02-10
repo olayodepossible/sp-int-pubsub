@@ -13,6 +13,8 @@ import com.possible.sp.database.TicketType;
 import com.possible.sp.database.TicketTypeRepository;
 import com.possible.sp.model.AttendeeRegistration;
 import com.possible.sp.model.RegistrationEvent;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,10 +30,11 @@ import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class RegistrationService {
-    private static final Logger LOG = LoggerFactory.getLogger(RegistrationService.class);
 
     private final AttendeeTicketRepository attendeeTicketRepository;
     private final DiscountCodeRepository discountCodeRepository;
@@ -39,20 +42,9 @@ public class RegistrationService {
     private final TicketPriceRepository ticketPriceRepository;
     private final TicketTypeRepository ticketTypeRepository;
 
-    public RegistrationService(AttendeeTicketRepository attendeeTicketRepository,
-                               DiscountCodeRepository discountCodeRepository,
-                               PricingCategoryRepository pricingCategoryRepository,
-                               TicketPriceRepository ticketPriceRepository,
-                               TicketTypeRepository ticketTypeRepository) {
-        this.attendeeTicketRepository = attendeeTicketRepository;
-        this.discountCodeRepository = discountCodeRepository;
-        this.pricingCategoryRepository = pricingCategoryRepository;
-        this.ticketPriceRepository = ticketPriceRepository;
-        this.ticketTypeRepository = ticketTypeRepository;
-    }
 
     public RegistrationEvent register(@Header("dateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime dateTime, @Payload AttendeeRegistration registration) {
-        LOG.debug("Registration received at: {} for: {}", dateTime, registration.getEmail());
+        log.debug("Registration received at: {} for: {}", dateTime, registration.getEmail());
 
         Attendee attendee = createAttendee(registration);
         TicketPrice ticketPrice = getTicketPrice(dateTime, registration);
@@ -66,7 +58,7 @@ public class RegistrationService {
         attendeeTicket.setNetPrice(ticketPrice.getBasePrice().subtract(discountCode.map(DiscountCode::getAmount).orElse(BigDecimal.ZERO)));
 
         attendeeTicketRepository.save(attendeeTicket);
-        LOG.debug("Registration saved, ticket code: {}", attendeeTicket.getTicketCode());
+        log.debug("Registration saved, ticket code: {}", attendeeTicket.getTicketCode());
 
         RegistrationEvent event = new RegistrationEvent();
         event.setTicketType(attendeeTicket.getTicketPrice().getTicketType().getCode());
