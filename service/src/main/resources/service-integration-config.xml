@@ -41,7 +41,7 @@
         <int:transformer ref="confirmationMailTransformer" method="toMailText"/>
 
         <!-- Outbound channel adapter for sending e-mail -->
-        <int-mail:outbound-channel-adapter host="smtp.gmail.com" port="587" username="abayomi.gratitudeindia@gmail.com" password="jclckxmrkgoegjmc"/>
+        <int-mail:outbound-channel-adapter host="smtp.gmail.com" port="587" username="abayomi.gratitudeindia@gmail.com" password="password"/>
     </int:chain>
 
     <int:chain id="billingChain" input-channel="registrationEvent">
